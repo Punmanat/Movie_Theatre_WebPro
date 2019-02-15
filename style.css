@@ -1,0 +1,44 @@
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    height: 100px;
+    width: 100px;
+    outline: black;
+    background-size: 100%, 100%;
+    background-image: none;
+}
+
+.carousel-control-next-icon:after {
+    content: '>';
+    font-size: 60px;
+    color: white;
+}
+
+.carousel-control-prev-icon:after {
+    content: '<';
+    font-size: 60px;
+    color: white;
+}
+
+.btn-group.special {
+    display: flex;
+}
+
+.special .btn {
+    flex: 1
+}
+
+.category-btn {
+    border: 1px solid black;
+}
+
+.category-btn:hover {
+    border: 0;
+    background-color: grey;
+    color: white;
+}
+
+.click-category-btn{
+    border: 0;
+    background-color: grey;
+    color: white;
+}
