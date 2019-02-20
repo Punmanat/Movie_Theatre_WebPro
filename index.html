@@ -77,35 +77,25 @@
             </div>
 
             <br>
-            <div class="btn-group special">
-                <button type="button" @click='filterMovie(category)' :class='{"click-category-btn":category.active,}' v-for='category in categories'
-                    class="btn btn-default category-btn">{{category.name}}</button>
-            </div>
+            <!-- <div>
+                <select name="genre" id="" @change='filterMovies()' v-model='selectedGenre'>
+                    <option :value="category.id" v-for='category in categories' name="genre">{{category.name}}</option>
+                </select>
+            </div> -->
+            <!-- <div class="btn-group flex-wrap">
+                <button type="button" @click='filterMovies(category, true)' v-for='category in categories'
+                    class="btn btn-default category-btn" :class="{'color':category.active}">{{category.name}}</button>
+            </div> -->
             <div class="row">
+                <select class="col-4 form-control" name="genre" id="" @change='filterMovies()' v-model='selectedGenre'>
+                    <option :value="category.id" v-for='category in categories' name="genre">{{category.name}}</option>
+                </select>
                 <div class='col-4'></div>
-                <div class='col-4'></div>
-                <div class='col-4'><input type="text" class='mt-3 form-control' placeholder="ค้นหาหนัง"></div>
+                <div class='col-4'><input type="text" class='form-control' v-model="searchMovie" placeholder="ค้นหาหนัง"></div>
             </div>
 
             <div class="row">
-                <div class="col-4" v-for = 'movie in movies' v-show="movie.showMovie">
-                    <div class="card mt-5" style="width: 18rem;">
-                        <img class="card-img-top"
-                            :src="movie.poster"
-                            alt="Card image cap" style="height:270px">
-                        <div class="card-body">
-                            <h5 class="card-title">{{movie.name.en}}</h5>
-                            <hr>
-                            <p class="card-text">ผู้กำกับ  : {{movie.actors}}</p>
-                            <hr>
-                            <p class="card-text">นักแสดง : {{movie.director}}</p>
-                            <hr>
-                            <button @click='showDescribe(movie)' class="btn btn-success">แสดงเรื่องย่อ</button>
-                            <a href="#" class="btn btn-primary ml-3">Buy ticket</a>
-                            <p class="card-text" v-html="movie.synopsis" v-show="movie.showDesc"></p>
-                        </div>
-                    </div>
-                </div>
+               <movie v-for="movie in searchMovies" :movie="movie" @show-desc="showDescribe(movie)"></movie>
             </div>
         </div>
 
@@ -118,13 +108,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./movie.js"></script>
 
     <!-- VueJs -->
     <script>
         let app = new Vue({
             el: "#app",
             data: {
+
+                temp_id : -1,
+                searchMovie : "",
                 // หมวดหมู่ภาพยนตร์
+                selectedGenre : 0,
                 categories: [
                     { id: 0, name: "All", active:false, },
                     { id: 1, name: "Action", active:false, },
@@ -213,10 +208,11 @@
                 ]
             },
             methods: {
-                filterMovie(category){
+                filterMovies(){
+                    console.log(this.selectedGenre);
                     for(let i=0; i < this.movies.length; i++){
                         for(let j=0; j< (this.movies[i].categories).length;j++){
-                            if(category.id != this.movies[i].categories[j]){
+                            if(this.selectedGenre != this.movies[i].categories[j]){
                                 this.movies[i].showMovie = false;
                             }
                             else{
@@ -229,7 +225,18 @@
                 showDescribe(movie){
                     movie.showDesc = !movie.showDesc;
                 }
-            }
+            },
+            computed: {
+                searchMovies:function(){
+                    let self = this;
+                    return self.movies.filter(function(movie){
+                        let result = self.searchMovie.toLowerCase()
+                        let title1 = movie.name.en.toLowerCase().includes(result);
+                        let title2 = movie.name.th.toLowerCase().includes(result);
+                        return title1 | title2
+                    });
+                }
+            },
         })
     </script>
 </body>
