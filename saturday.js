@@ -1,5 +1,5 @@
 Vue.component('saturday',{
-    template:`<div><div
+    template:`<div
     class="mt-5"
     style="width:100%; height:500px;background-color:white;"
   >
@@ -52,5 +52,5 @@ Vue.component('saturday',{
           </div>
         </div>
   </div>
-</div></div>`
+</div>`
 });
