@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Movie Detail</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <nav-bar></nav-bar>
+      <div class="container">
+        <movie-detail :movie="movies[0]"></movie-detail>
+      </div>
+      <br />
+      <br />
+      <br />
+      <div class="container">
+        <h4 class="font">หนังหมวดหมู่เดี่ยวกัน</h4>
+        <hr>
+        <div class="row">
+          <movie
+            v-for="movie in movies"
+            :movie="movie"
+            @show-desc="showDescribe(movie)"
+          ></movie>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./nav-bar.js"></script>
+    <script src="./movie.js"></script>
+    <script src="./movie-detail.js"></script>
+
+    <script>
+      let app = new Vue({
+        el: "#app",
+        data: {
+          searchMovie: "",
+          // หมวดหมู่ภาพยนตร์
+          selectedGenre: 0,
+          categories: [
+            { id: 0, name: "All", active: false },
+            { id: 1, name: "Action", active: false },
+            { id: 2, name: "Adventure", active: false },
+            { id: 3, name: "Animation", active: false },
+            { id: 4, name: "Biography", active: false },
+            { id: 5, name: "Crime", active: false },
+            { id: 6, name: "Comedy", active: false },
+            { id: 7, name: "Drama", active: false },
+            { id: 8, name: "History", active: false },
+            { id: 9, name: "Horror", active: false },
+            { id: 10, name: "Mystery", active: false },
+            { id: 11, name: "Sci-Fi", active: false },
+            { id: 12, name: "Romance", active: false }
+          ],
+
+          // ภาพยนตร์
+          movies: [
+            {
+              id: 1,
+              name: { en: "Captain Marvel", th: "กัปตันมาร์เวล" },
+              poster:
+                "https://www.majorcineplex.com/uploads/movie/2465/thumb_2465-large.jpg",
+              director: "แอนนา โบเดน, ไรอัน เฟล็ก",
+              actors: "บรี ลาร์สัน, ซามูเอล แอล. แจ็กสัน, ลี เพซ, จู๊ด ลอว์",
+              categories: [0, 1, 2, 11],
+              showDesc: false,
+              showMovie: true,
+              isRound:false,
+              synopsis: `<div class="desclistsynopsis"><p></p><p>เรื่องราวของของแครอล แดนเวอร์ส หรือ กัปตัน มาร์เวล ฮีโร่ที่ทรงพลังที่สุดในจักรวาลมาร์เวล กับการปกป้องโลกจากสงครามระดับจักรวาลระหว่างเอเลี่ยน 2 เผ่าพันธุ์ มาร์เวล สตูดิโอส์ จะพาเราไปพบกับการผจญภัยที่คุณไม่เคยเห็นมาก่อนในประวัติศาสตร์ของจักรวาลภาพยนตร์มาร์เวล พบกัน มีนาคม 2562</p><br><p></p></div>`
+            },
+            {
+              id: 3,
+              name: { en: "Alita Battle Angel", th: "อลิตา แบทเทิล แองเจิ้ล" },
+              poster:
+                "https://www.majorcineplex.com/uploads/movie/2194/thumb_2194-large.jpg",
+              director: "โรเบิร์ต รอดริเกซ",
+              actors: "โรซา ซาลาซาร์, อีซา กอนซาเลซ, เจนนิเฟอร์ คอนเนลลี",
+              categories: [0, 1, 2, 12],
+              showDesc: false,
+              showMovie: true,
+              synopsis: `<div class="desclistsynopsis"><p></p><p>Alita: Battle Angel ภาพยนตร์ดัดแปลงจากการ์ตูนญี่ปุ่นเรื่อง เพชฌฆาตไซบอร์ก หรือในชื่อญี่ปุ่นว่า Gunnm ซึ่งเขียนโดย คิชิโระ ยูกิโตะ และได้รับการดัดแปลงเป็นแอนิเมชั่นจากเนื้อเรื่องในหนังสือเล่มแรกๆในชื่อ Battle Angel เรื่องราวเกิดขึ้นในอนาคตอันไกลโพ้น ซึ่งไซบอร์คและหุ่นยนตร์กลายเป็นเรื่องปกติ เมืองลอยฟ้าทิฟาเรส เก็บงำความลับอันดำมืด มันทิ้งขยะไร้ค่าลงสู่โล่งเบื้องล่าง และที่ลานทิ้งขยะนั้นเอง แพทย์ไซบอร์ค อิโดะ พบเข้ากับชิ้นส่วนหัวและลำตัวของเด็กสาวไซบอร์คที่ยังมีชีวิตอยู่ได้ มีเพียงสมองของเธอเท่านั้นที่เป็นมนุษย์ ส่วนอื่นในร่างกายของเธอล้วนเป็นเครื่องจักร เธอสูญเสียความทรงจำทั้งหมดในอดีต และได้ชื่อใหม่จากอิโดะ "เอลิตา" เขาสร้างเธอขึ้นมาใหม่อีกครั้งและกลายเป็นเสมือนบิดาของเธอในฐานะผู้มอบร่างกายใหม่ให้ อย่างไรก็ตาม ข่าวการฆาตกรรมต่อเนื่องได้เริ่มแพร่กระจายไปในเมือง อลิตาเริ่มสงสัยอิโดะในฐานะผู้ลงมือเพื่อหาชิ้นส่วนร่างกายให้เธอ แต่เมื่อเธอติดตามเขาออกไปในคืนหนึ่ง จึงได้พบว่าที่แท้เขากำลังตามจับตัวฆาตกร ภายใต้ฐานะ "ฮันเตอร์ วอร์ริเออร์" ที่เขาได้รับมอบหมายมา ระหว่างการเข้าปะทะกับฆาตกรตัวจริงนั้น สัญชาติญาณของเด็กสาวก็ทำงาน เธอล้มฆาตกรได้ด้วยศิลปะการต่อสู้โบราณ ผลสุดท้าย เธอจึงตัดสินใจเข้าช่วยเหลืออิโดะในการพิทักษ์ความยุติธรรม และได้กลายมาเป็นฮันเตอร์วอร์ริเออร์เช่นกัน เธอปลดล็อคความสามารถและพลังที่แท้จริงของตนเอง เข้าต่อสู้กับศัตรูที่แสนอันตราย และเพื่อนผู้ยึดมั่นในอุดมการณ์</p><br><p></p></div>`
+            }
+          ]
+        },
+        methods: {
+          showDescribe(movie) {
+            movie.showDesc = !movie.showDesc;
+          },
+        }
+      });
+    </script>
+  </body>
+</html>

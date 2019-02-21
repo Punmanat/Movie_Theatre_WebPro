@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Theater</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <nav-bar></nav-bar>
+      <div class="container">
+        <div
+          class="mt-5"
+          style="width:100%; height: 240px; background-color:white;"
+        >
+          <div style="width:40%;top:11%;position:absolute; right:30%;">
+            <img :src="movies[0].poster" alt="" />
+          </div>
+          <div
+            class="font"
+            style="width:40%; padding:1.25em;position:absolute; right:10%;color: black"
+          >
+            <h3>{{ movies[0].name.en }}</h3>
+            <h5>{{ movies[0].name.th }}</h5>
+            <p>หมวดหมู่ : Action</p>
+            <p>เรทผู้ชม : 15+</p>
+            <a class="btn btn-primary" href="./movie_detail.html"
+              >รายละเอียดภาพยนต์</a
+            >
+          </div>
+        </div>
+        <br />
+        <br />
+        <div
+          class="d-flex"
+          style="background-color:white;border:1px solid black"
+        >
+          <button
+            class="btn-queue btn p-2 flex-fill font"
+            :class="{'btn-queue-color':isColor1}"
+            @click="activeBtn(1)"
+          >
+            ศุกร์ <br />
+            22 ก.พ. 2019
+          </button>
+          <span style="border-left:1px solid black font"></span>
+          <button
+            class="btn-queue btn p-2 flex-fill font"
+            :class="{'btn-queue-color':isColor2}"
+            @click="activeBtn(2)"
+          >
+            เสาร์ <br />
+            23 ก.พ. 2019
+          </button>
+          <span style="border-left:1px solid black font"></span>
+          <button
+            class="btn-queue btn p-2 flex-fill font"
+            :class="{'btn-queue-color':isColor3}"
+            @click="activeBtn(3)"
+          >
+            อาทิตย์ <br />
+            24 ก.พ. 2019
+          </button>
+        </div>
+        <friday v-show="isColor1"></friday>
+        <saturday v-show="isColor2"></saturday>
+        <sunday v-show="isColor3"></sunday>
+    </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./nav-bar.js"></script>
+    <script src="./friday.js"></script>
+    <script src="./saturday.js"></script>
+    <script src="./sunday.js"></script>
+
+    <script>
+      let app = new Vue({
+        el: "#app",
+        data: {
+          isColor1: false,
+          isColor2: false,
+          isColor3: false,
+          searchMovie: "",
+          // หมวดหมู่ภาพยนตร์
+          selectedGenre: 0,
+          categories: [
+            { id: 0, name: "All", active: false },
+            { id: 1, name: "Action", active: false },
+            { id: 2, name: "Adventure", active: false },
+            { id: 3, name: "Animation", active: false },
+            { id: 4, name: "Biography", active: false },
+            { id: 5, name: "Crime", active: false },
+            { id: 6, name: "Comedy", active: false },
+            { id: 7, name: "Drama", active: false },
+            { id: 8, name: "History", active: false },
+            { id: 9, name: "Horror", active: false },
+            { id: 10, name: "Mystery", active: false },
+            { id: 11, name: "Sci-Fi", active: false },
+            { id: 12, name: "Romance", active: false }
+          ],
+
+          // ภาพยนตร์
+          movies: [
+            {
+              id: 1,
+              name: { en: "Captain Marvel", th: "กัปตันมาร์เวล" },
+              poster:
+                "https://www.majorcineplex.com/uploads/movie/2465/thumb_2465-large.jpg",
+              director: "แอนนา โบเดน, ไรอัน เฟล็ก",
+              actors: "บรี ลาร์สัน, ซามูเอล แอล. แจ็กสัน, ลี เพซ, จู๊ด ลอว์",
+              categories: [0, 1, 2, 11],
+              showDesc: false,
+              showMovie: true,
+              isRound: false,
+              synopsis: `<div class="desclistsynopsis"><p></p><p>เรื่องราวของของแครอล แดนเวอร์ส หรือ กัปตัน มาร์เวล ฮีโร่ที่ทรงพลังที่สุดในจักรวาลมาร์เวล กับการปกป้องโลกจากสงครามระดับจักรวาลระหว่างเอเลี่ยน 2 เผ่าพันธุ์ มาร์เวล สตูดิโอส์ จะพาเราไปพบกับการผจญภัยที่คุณไม่เคยเห็นมาก่อนในประวัติศาสตร์ของจักรวาลภาพยนตร์มาร์เวล พบกัน มีนาคม 2562</p><br><p></p></div>`
+            }
+          ]
+        },
+        methods: {
+          activeBtn(num) {
+            if (num == 1) {
+              this.isColor1 = true;
+              this.isColor2 = false;
+              this.isColor3 = false;
+            } else if (num == 2) {
+              this.isColor1 = false;
+              this.isColor2 = true;
+              this.isColor3 = false;
+            } else if (num == 3) {
+              this.isColor1 = false;
+              this.isColor2 = false;
+              this.isColor3 = true;
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

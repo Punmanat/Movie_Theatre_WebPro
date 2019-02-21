@@ -13,79 +13,11 @@
 <body>
     <div id="app">
         <!-- Nav -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-            <div class="container">
-                <a href="#" class="navbar-brand">Web title</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a href="#" class="nav-link">menu1</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">menu2</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link"><img width='30' heigth='30'
-                                    src="https://png.pngtree.com/svg/20170502/user_login__115485.png" alt="user"></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+       <nav-bar></nav-bar>
         <br>
         <div class="container">
-            <div id='movies' class="carousel slide" data-ride="carousel" data- interval="5000">
-                <ul class="carousel-indicators">
-                    <li data-target='#movies' class="active"></li>
-                    <li data-target='#movies'></li>
-                    <li data-target='#movies'></li>
-                </ul>
-
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <center>
-                            <img class="img-responsive" style='height:530px;
-                                                width:100%;'
-                                src="https://images.spot.im/v1/production/r2res9jrakgetufqehtl" alt="">
-                        </center>
-                    </div>
-                    <div class="carousel-item">
-                        <center>
-                            <img class="img-responsive" style='height:530px;
-                                                width:100%;'
-                                src="https://assets1.ignimgs.com/2018/09/04/spidermanps4avengers-1280-1536101474848_1280w.jpg"
-                                alt="">
-                        </center>
-                    </div>
-                    <div class="carousel-item">
-                        <center>
-                            <img class="img-responsive" style='height:530px;
-                                                width:100%;'
-                                src="https://s.isanook.com/mv/0/rp/r/w700/ya0xa0m1w0/aHR0cHM6Ly9zLmlzYW5vb2suY29tL212LzAvdWQvNi8zNDEwMS9tYWFrLXNzLmpwZw==.jpg"
-                                alt="">
-                        </center>
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#movies" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#movies" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-
+            <carousel-tag></carousel-tag>
             <br>
-            <!-- <div>
-                <select name="genre" id="" @change='filterMovies()' v-model='selectedGenre'>
-                    <option :value="category.id" v-for='category in categories' name="genre">{{category.name}}</option>
-                </select>
-            </div> -->
-            <!-- <div class="btn-group flex-wrap">
-                <button type="button" @click='filterMovies(category, true)' v-for='category in categories'
-                    class="btn btn-default category-btn" :class="{'color':category.active}">{{category.name}}</button>
-            </div> -->
             <div class="row">
                 <select class="col-4 form-control" name="genre" id="" @change='filterMovies()' v-model='selectedGenre'>
                     <option :value="category.id" v-for='category in categories' name="genre">{{category.name}}</option>
@@ -109,14 +41,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="./movie.js"></script>
+    <script src="./nav-bar.js"></script>
+    <script src="./carousel-tag.js"></script>
 
     <!-- VueJs -->
     <script>
         let app = new Vue({
             el: "#app",
             data: {
-
-                temp_id : -1,
                 searchMovie : "",
                 // หมวดหมู่ภาพยนตร์
                 selectedGenre : 0,
@@ -137,7 +69,6 @@
                 ],
 
                 // ภาพยนตร์
-                temp_movies:[],
                 movies: [
                     {
                         id: 1,

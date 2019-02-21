@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Prompt');
+body{
+    background-color: rgb(245,247,251);
+}
+.font{
+    font-family: 'Prompt', sans-serif;
+}
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     height: 100px;
@@ -40,4 +47,13 @@
     border: 0;
     background-color: grey;
     color: white;
+}
+.btn-queue:hover{
+    background-color: rgb(57, 61, 65);
+    color:white;
+}
+
+.btn-queue-color{
+    background-color: rgb(57, 61, 65);
+    color:white;
 }
