@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Success</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <nav-bar></nav-bar>
+      <div class="alert alert-success font text-center" role="alert">
+        จองหนังสำเร็จ
+      </div>
+      <div class="container">
+            <div
+            class="mt-5"
+            style="width:100%; height: 240px; background-color:white;"
+          >
+            <div style="width:40%;top:17.25%;position:absolute; right:30%;">
+              <img :src="movies[0].poster" alt="" />
+            </div>
+            <div
+              class="font"
+              style="width:40%; padding:1.25em;position:absolute; right:10%;color: black"
+            >
+              <h3>{{ movies[0].name.en }}</h3>
+              <h5>{{ movies[0].name.th }}</h5>
+              <p>หมวดหมู่ : Action</p>
+              <p>เรทผู้ชม : 15+</p>
+              <button class="btn btn-success" disabled
+                >สำเร็จ</button
+              >
+            </div>
+          </div>
+            <p class="mt-5 text-center font h2"><span style="color:red;">** </span>โปรดกลับหน้าแรก<span style="color:red;"> **</span></p>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./components/nav-bar.js"></script>
+    <script src="./components/movie-theater.js"></script>
+
+    <script>
+      let app = new Vue({
+        el: "#app",
+        data: {
+          movies: [
+            {
+              id: 1,
+              name: { en: "Captain Marvel", th: "กัปตันมาร์เวล" },
+              poster:
+                "https://www.majorcineplex.com/uploads/movie/2465/thumb_2465-large.jpg",
+              director: "แอนนา โบเดน, ไรอัน เฟล็ก",
+              actors: "บรี ลาร์สัน, ซามูเอล แอล. แจ็กสัน, ลี เพซ, จู๊ด ลอว์",
+              categories: [0, 1, 2, 11],
+              showDesc: false,
+              showMovie: true,
+              isRound: false,
+              synopsis: `<div class="desclistsynopsis"><p></p><p>เรื่องราวของของแครอล แดนเวอร์ส หรือ กัปตัน มาร์เวล ฮีโร่ที่ทรงพลังที่สุดในจักรวาลมาร์เวล กับการปกป้องโลกจากสงครามระดับจักรวาลระหว่างเอเลี่ยน 2 เผ่าพันธุ์ มาร์เวล สตูดิโอส์ จะพาเราไปพบกับการผจญภัยที่คุณไม่เคยเห็นมาก่อนในประวัติศาสตร์ของจักรวาลภาพยนตร์มาร์เวล พบกัน มีนาคม 2562</p><br><p></p></div>`
+            }
+          ]
+        }
+      });
+    </script>
+  </body>
+</html>

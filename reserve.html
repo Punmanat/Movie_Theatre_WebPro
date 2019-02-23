@@ -155,11 +155,11 @@
                 <div class="card-text text-center">
                   <img src="./images/frame.png" v-show="isPromptpay" alt="" />
                   <p v-show="isPromptpay" class="font">
-                    ชำระเสร็จกรุณาเก็บใบเสร็จไว้
+                        <span style="color:red;">**</span>ชำระเสร็จกรุณาเก็บใบเสร็จไว้<span style="color:red;">**</span>
                   </p>
                 </div>
                 <div class="card-text text-center" v-show="isCash">
-                  <p class="font">กรุณานำใบเสร็จไปจ่ายเงินที่เคาเตอร์</p>
+                  <p class="font"><span style="color:red;">**</span>กรุณานำใบเสร็จไปจ่ายเงินที่เคาเตอร์<span style="color:red;">**</span></p>
                 </div>
                 <form action="" class="form" v-show="isCredit">
                   <div class="form-group">
@@ -193,12 +193,20 @@
                       </div>
                     </div>
                   </div>
+                  <p class="font text-center"><span style="color:red;">**</span>ชำระเสร็จกรุณาเก็บใบเสร็จไว้<span style="color:red;">**</span></p>
                 </form>
 
                 <hr>
-                <button class="w-100 btn btn-primary" @click="processPrint()">
-                  ดำเนินการต่อ
+                <button class="w-100 btn btn-primary" v-if="isCash" @click="processPrintCash()">
+                  print
                 </button>
+                <a href="./success.html" class="w-100 btn btn-success" v-else-if="isCredit|isPromptpay">
+                    เสร็จสิ้น
+                </a>
+                <button class="w-100 btn btn-danger" disabled v-else>
+                        โปรดเลือกวิธีการชำระเงิน
+                </button>
+                
               </div>
             </div>
           </div>
@@ -602,10 +610,10 @@
             }
           },
         //   process
-        processPrint() {
+        processPrintCash() {
             let newHtml = 
                         '<div class="container">'+
-                        '<p class="font mt-5 text-center h3">ใบเสร็จการชำระเงิน</p>'+
+                        '<p class="font mt-5 text-center h3">ใบเสร็จการชำระเงิน (Cash only)</p>'+
                         '<table class="table table-bordered">'+
                         '<tr>'+
                         '<th class="font text-center">รายละเอียด</th>'+
@@ -616,7 +624,7 @@
                         '<p class="font" style="font-size:20px;">หนังเรื่อง '+this.movies[0].name.en + '( '+this.movies[0].name.th+' )</p>'+
                         '<p class="font" style="font-size:20px;">เลขที่นั่ง '+this.choose_seat+
                         '</p><p class="font" style="font-size:20px;"> โรงที่ 11 </p></td>'+
-                        '<td class="font text-center" style="font-size:20px;">'+this.price_all+' Baht</td>'+
+                        '<td class="font text-center" style="font-size:20px;">ยอดค้างชำระ '+this.price_all+' Baht</td>'+
                         '</tr>'+
                         '</table>'+
                         '</div>'
