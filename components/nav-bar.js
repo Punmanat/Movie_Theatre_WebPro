@@ -9,8 +9,10 @@ Vue.component('nav-bar',{
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="#" class="nav-link">menu1</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">menu2</a></li>
+                <li class="nav-item"><a href="Signin.html" class="nav-link">Sign in</a></li>
+                <li class="nav-item"><a href="register.html" class="nav-link">Register</a></li>
+
+                
                 <li class="nav-item"><a href="#" class="nav-link"><img width='30' heigth='30'
                             src="https://png.pngtree.com/svg/20170502/user_login__115485.png" alt="user"></a>
                 </li>
