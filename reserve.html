@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Reserve</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- Nav -->
+      <nav-bar></nav-bar>
+      <div class="container">
+        <movie-theater :movie="movies[0]"></movie-theater>
+        <div class="row mt-5">
+          <div class="col-6">
+            <div class="row mb-3">
+              <div class="col-12">
+                <hr />
+                <p class="text-center font h2">screen</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="mt-1 col-1"><span class="font h3">E</span></div>
+              <div
+                class="col-1"
+                @click="check(seat_E)"
+                v-for="seat_E in seats_E"
+              >
+                <img
+                  class="seat"
+                  :src="seat_E.url"
+                  alt=""
+                  width="50"
+                  height="50"
+                />
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="mt-1 col-1"><span class="font h3">D</span></div>
+              <div
+                class="col-1"
+                @click="check(seat_D)"
+                v-for="seat_D in seats_D"
+              >
+                <img
+                  class="seat"
+                  :src="seat_D.url"
+                  alt=""
+                  width="50"
+                  height="50"
+                />
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="mt-1 col-1"><span class="font h3">C</span></div>
+              <div
+                class="col-1"
+                @click="check(seat_C)"
+                v-for="seat_C in seats_C"
+              >
+                <img
+                  class="seat"
+                  :src="seat_C.url"
+                  alt=""
+                  width="50"
+                  height="50"
+                />
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="mt-1 col-1"><span class="font h3">B</span></div>
+              <div
+                class="col-1"
+                @click="check(seat_B)"
+                v-for="seat_B in seats_B"
+              >
+                <img
+                  class="seat"
+                  :src="seat_B.url"
+                  alt=""
+                  width="50"
+                  height="50"
+                />
+              </div>
+            </div>
+            <div class="row mt-5 mb-2">
+              <div class="mt-1 col-1"><span class="font h3">A</span></div>
+              <div
+                class="ml-4 col-2"
+                @click="checkPre(seat_A)"
+                v-for="seat_A in seats_A"
+              >
+                <img
+                  class="seat"
+                  :src="seat_A.url"
+                  alt=""
+                  width="50"
+                  height="50"
+                />
+              </div>
+            </div>
+            <hr />
+            <div class="row mt-3 ml-3">
+              <div class="mt-1 col-6">
+                <img
+                  src="http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png"
+                  alt=""
+                  width="50"
+                  height="50"
+                /><span class="font">&nbsp;&nbsp;Deluxe : 160 baht</span>
+              </div>
+              <div class="col-6">
+                <img
+                  src="https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Couch.png"
+                  alt=""
+                  width="50"
+                  height="50"
+                /><span class="font">&nbsp;&nbsp;&nbsp;Premium : 300 baht</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card mt-3">
+              <div class="card-body">
+                <p class="card-text text-center h4 font">ที่นั่งที่เลือก</p>
+                <p class="card-text text-center h5 font p-3">{{ choose_seat }}</p>
+                <hr />
+                <p class="card-text text-center h4 font">ราคารวม</p>
+                <p class="card-text text-center h5 font mt-2 p-3">
+                  {{ price_all }} Baht
+                </p>
+                <hr />
+                <p class="card-text text-center h4 font">
+                  เลือกวิธีการชำระเงิน
+                </p>
+                <div class="card-text form-group p-4">
+                  <select
+                    name="payment"
+                    id=""
+                    v-model="payment"
+                    class="form-control"
+                    @change="selectMethod()"
+                  >
+                    <option value="promptpay">promptpay</option>
+                    <option value="cash">cash</option>
+                    <option value="credit">credit</option>
+                  </select>
+                </div>
+                <div class="card-text text-center">
+                  <img src="./images/frame.png" v-show="isPromptpay" alt="" />
+                  <p v-show="isPromptpay" class="font">
+                    ชำระเสร็จกรุณาเก็บใบเสร็จไว้
+                  </p>
+                </div>
+                <div class="card-text text-center" v-show="isCash">
+                  <p class="font">กรุณานำใบเสร็จไปจ่ายเงินที่เคาเตอร์</p>
+                </div>
+                <form action="" class="form" v-show="isCredit">
+                  <div class="form-group">
+                    <label for="">Card Number</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <label for="">CVV</label>
+                    <input type="text" class="form-control" />
+                  </div>
+                  <div class="form-group">
+                    <label for="">Expired Date</label>
+                    <div class="row">
+                      <div class="col-6">
+                        <select name="" id="" class="form-control">
+                          <option value="" v-for="m in months">{{
+                            m.month
+                          }}</option>
+                        </select>
+                      </div>
+                      <div class="col-6">
+                        <select name="" id="" class="form-control">
+                          <option value="" v-for="m in 10">{{
+                            2019 + Number(m)
+                          }}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+                <hr>
+                <button class="w-100 btn btn-primary" @click="processPrint()">
+                  ดำเนินการต่อ
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./components/nav-bar.js"></script>
+    <script src="./components/movie-theater.js"></script>
+
+    <!-- https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Couch.png -->
+
+    <script>
+      let app = new Vue({
+        el: "#app",
+        data: {
+          months: [
+            { month: "January" },
+            { month: "February" },
+            { month: "March" },
+            { month: "March" },
+            { month: "April" },
+            { month: "May" },
+            { month: "June" },
+            { month: "July" },
+            { month: "August" },
+            { month: "September" },
+            { month: "October" },
+            { month: "November" },
+            { month: "December" }
+          ],
+          isPromptpay: false,
+          isCash: false,
+          isCredit: false,
+          payment: "",
+          price_all: 0,
+          choose_seat: "",
+          movies: [
+            {
+              id: 1,
+              name: { en: "Captain Marvel", th: "กัปตันมาร์เวล" },
+              poster:
+                "https://www.majorcineplex.com/uploads/movie/2465/thumb_2465-large.jpg",
+              director: "แอนนา โบเดน, ไรอัน เฟล็ก",
+              actors: "บรี ลาร์สัน, ซามูเอล แอล. แจ็กสัน, ลี เพซ, จู๊ด ลอว์",
+              categories: [0, 1, 2, 11],
+              showDesc: false,
+              showMovie: true,
+              isRound: false,
+              synopsis: `<div class="desclistsynopsis"><p></p><p>เรื่องราวของของแครอล แดนเวอร์ส หรือ กัปตัน มาร์เวล ฮีโร่ที่ทรงพลังที่สุดในจักรวาลมาร์เวล กับการปกป้องโลกจากสงครามระดับจักรวาลระหว่างเอเลี่ยน 2 เผ่าพันธุ์ มาร์เวล สตูดิโอส์ จะพาเราไปพบกับการผจญภัยที่คุณไม่เคยเห็นมาก่อนในประวัติศาสตร์ของจักรวาลภาพยนตร์มาร์เวล พบกัน มีนาคม 2562</p><br><p></p></div>`
+            }
+          ],
+          seats_E: [
+            {
+              id: "E1",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "E2",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "E3",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "E4",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "E5",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "E6",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "E7",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "E8",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "E9",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "E10",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            }
+          ],
+          seats_D: [
+            {
+              id: "D1",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "D2",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "D3",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "D4",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "D5",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "D6",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "D7",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "D8",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "D9",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "D10",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            }
+          ],
+          seats_C: [
+            {
+              id: "C1",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "C2",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "C3",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "C4",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "C5",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "C6",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "C7",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "C8",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "C9",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "C10",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            }
+          ],
+          seats_B: [
+            {
+              id: "B1",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "B2",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "B3",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "B4",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "B5",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "B6",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "B7",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "B8",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "B9",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            },
+            {
+              id: "B10",
+              url:
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png",
+              price: 160
+            }
+          ],
+          seats_A: [
+            {
+              id: "A1",
+              url:
+                "https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Couch.png",
+              price: 300
+            },
+            {
+              id: "A2",
+              url:
+                "https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Couch.png",
+              price: 300
+            },
+            {
+              id: "A3",
+              url:
+                "https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Couch.png",
+              price: 300
+            },
+            {
+              id: "A4",
+              url:
+                "https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Couch.png",
+              price: 300
+            }
+          ]
+        },
+        methods: {
+          check(seat) {
+            if (
+              seat.url ==
+              "https://cdn1.iconfinder.com/data/icons/ui-colored-3-of-3/100/UI_3_-20-512.png"
+            ) {
+              seat.url =
+                "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/1024/42591-seat-icon.png";
+              let temp = this.choose_seat.split(",");
+              temp.pop();
+              temp = temp
+                .filter(function(item) {
+                  return item !== seat.id;
+                })
+                .sort();
+              console.log(temp);
+              this.choose_seat = temp.join(",") + ",";
+              if (temp.length == 0) {
+                this.choose_seat = "";
+              }
+              this.price_all -= seat.price;
+            } else {
+              seat.url =
+                "https://cdn1.iconfinder.com/data/icons/ui-colored-3-of-3/100/UI_3_-20-512.png";
+              this.choose_seat += seat.id + ",";
+              this.price_all += seat.price;
+            }
+          },
+          checkPre(seat) {
+            if (
+              seat.url ==
+              "https://cdn1.iconfinder.com/data/icons/ui-colored-3-of-3/100/UI_3_-20-512.png"
+            ) {
+              seat.url =
+                "https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Couch.png";
+              let temp = this.choose_seat.split(",");
+              temp.pop();
+              temp = temp
+                .filter(function(item) {
+                  return item !== seat.id;
+                })
+                .sort();
+              console.log(temp);
+              this.choose_seat = temp.join(",") + ",";
+              if (temp.length == 0) {
+                this.choose_seat = "";
+              }
+              this.price_all -= seat.price;
+            } else {
+              seat.url =
+                "https://cdn1.iconfinder.com/data/icons/ui-colored-3-of-3/100/UI_3_-20-512.png";
+              this.choose_seat += seat.id + ",";
+              this.price_all += seat.price;
+            }
+          },
+          selectMethod() {
+            if (this.payment == "promptpay") {
+              this.isPromptpay = true;
+              this.isCash = false;
+              this.isCredit = false;
+            } else if (this.payment == "cash") {
+              this.isPromptpay = false;
+              this.isCash = true;
+              this.isCredit = false;
+            } else if (this.payment == "credit") {
+              this.isPromptpay = false;
+              this.isCash = false;
+              this.isCredit = true;
+            }
+          },
+        //   process
+        processPrint() {
+            let newHtml = 
+                        '<div class="container">'+
+                        '<p class="font mt-5 text-center h3">ใบเสร็จการชำระเงิน</p>'+
+                        '<table class="table table-bordered">'+
+                        '<tr>'+
+                        '<th class="font text-center">รายละเอียด</th>'+
+                        '<th class="font text-center">Amount</th>'+
+                        '</tr>'+
+                        '<tr>'+
+                        '<td class="font text-center"><img class="mb-2" width="100" height="100" src="'+this.movies[0].poster+'">'+
+                        '<p class="font" style="font-size:20px;">หนังเรื่อง '+this.movies[0].name.en + '( '+this.movies[0].name.th+' )</p>'+
+                        '<p class="font" style="font-size:20px;">เลขที่นั่ง '+this.choose_seat+
+                        '</p><p class="font" style="font-size:20px;"> โรงที่ 11 </p></td>'+
+                        '<td class="font text-center" style="font-size:20px;">'+this.price_all+' Baht</td>'+
+                        '</tr>'+
+                        '</table>'+
+                        '</div>'
+            let oldHtml = document.body.innerHTML
+            document.body.innerHTML = newHtml
+            window.print()
+            document.body.innerHTML = oldHtml
+            window.location.reload(true);
+          },
+        }
+      });
+    </script>
+  </body>
+</html>

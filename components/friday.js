@@ -19,12 +19,12 @@ Vue.component('friday',{
           height="100"
           alt=""
         />
-        <button class="btn btn-primary" style="position:absolute;left: 116%;
-        top: 50%;">13.00</button>
-        <button class="btn btn-primary" style="position:absolute;left: 180%;
-        top: 50%;">17.00</button>
-        <button class="btn btn-primary" style="position:absolute;left: 244%;
-        top: 50%;">20.00</button>
+        <a href="reserve.html"  class="btn btn-primary" style="color:white;position:absolute;left: 116%;
+        top: 50%;">13.00</a>
+        <a href="reserve.html"  class="btn btn-primary" style="color:white;position:absolute;left: 180%;
+        top: 50%;">17.00</a>
+        <a href="reserve.html"  class="btn btn-primary" style="color:white;position:absolute;left: 244%;
+        top: 50%;">20.00</a>
       </div>
     </div>
     <div
@@ -43,12 +43,12 @@ Vue.component('friday',{
               height="100"
               alt=""
             />
-            <button class="btn btn-primary" style="position:absolute;left: 116%;
-            top: 50%;">10.00</button>
-            <button class="btn btn-primary" style="position:absolute;left: 180%;
-            top: 50%;">14.30</button>
-            <button class="btn btn-primary" style="position:absolute;left: 244%;
-            top: 50%;">21.00</button>
+            <a href="reserve.html"  class="btn btn-primary" style="color:white;position:absolute;left: 116%;
+            top: 50%;">10.00</a>
+            <a href="reserve.html"  class="btn btn-primary" style="color:white;position:absolute;left: 180%;
+            top: 50%;">14.30</a>
+            <a href="reserve.html"  class="btn btn-primary" style="color:white;position:absolute;left: 244%;
+            top: 50%;">21.00</a>
           </div>
         </div>
   </div>

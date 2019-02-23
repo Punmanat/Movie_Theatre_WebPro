@@ -57,3 +57,13 @@ body{
     background-color: rgb(57, 61, 65);
     color:white;
 }
+
+.seat:hover{
+    animation: seatInout ease-out .2s;
+    transition: all 1s;
+    cursor: pointer;
+}
+@keyframes seatInout{
+    0%{transform: translateY(0px)}
+    100%{transform: translateY(-20px)}
+}
