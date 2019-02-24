@@ -13,7 +13,8 @@
   </head>
   <body>
     <div id="app">
-      <nav-bar></nav-bar>
+        <nav-bar-login v-if="isLogin" :username="username" @logout="logout()"></nav-bar-login>
+        <nav-bar v-else></nav-bar>
       <div class="container">
         <movie-detail :movie="movies[0]"></movie-detail>
       </div>
@@ -37,14 +38,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="./nav-bar.js"></script>
+    <script src="./components/nav-bar.js"></script>
+    <script src="./components/nav-bar-login.js"></script>
     <script src="./components/movie.js"></script>
     <script src="./components/movie-detail.js"></script>
 
     <script>
+      let flag = localStorage.getItem('isLogin') == 'true' 
+
       let app = new Vue({
         el: "#app",
         data: {
+          isLogin:flag,
+          username:localStorage.getItem('username'),
           searchMovie: "",
           // หมวดหมู่ภาพยนตร์
           selectedGenre: 0,
@@ -97,6 +103,10 @@
           showDescribe(movie) {
             movie.showDesc = !movie.showDesc;
           },
+                logout(){
+                    localStorage.isLogin = false
+                    this.isLogin = localStorage.isLogin
+                }
         }
       });
     </script>

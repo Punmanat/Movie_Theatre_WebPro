@@ -1,4 +1,5 @@
 Vue.component('sunday',{
+  props:['link'],
     template:`<div
     class="mt-5"
     style="width:100%; height:500px;background-color:white;"
@@ -19,13 +20,13 @@ Vue.component('sunday',{
           height="100"
           alt=""
         />
-        <a href="reserve.html" class="btn btn-primary" style="color:white;position:absolute;left: 116%;
+        <a :href="link" class="btn btn-primary" style="color:white;position:absolute;left: 116%;
         top: 50%;">07.00</a>
-        <a href="reserve.html" class="btn btn-primary" style="color:white;position:absolute;left: 180%;
+        <a :href="link" class="btn btn-primary" style="color:white;position:absolute;left: 180%;
         top: 50%;">12.00</a>
-        <a href="reserve.html" class="btn btn-primary" style="color:white;position:absolute;left: 244%;
+        <a :href="link" class="btn btn-primary" style="color:white;position:absolute;left: 244%;
         top: 50%;">15.00</a>
-        <a href="reserve.html" class="btn btn-primary" style="color:white;position:absolute;left: 308%;
+        <a :href="link" class="btn btn-primary" style="color:white;position:absolute;left: 308%;
         top: 50%;">18.00</a>
       </div>
     </div>
@@ -45,11 +46,11 @@ Vue.component('sunday',{
               height="100"
               alt=""
             />
-            <a href="reserve.html" class="btn btn-primary" style="color:white;sposition:absolute;left: 116%;
+            <a :href="link" class="btn btn-primary" style="color:white;sposition:absolute;left: 116%;
             top: 50%;">10.00</a>
-            <a href="reserve.html" class="btn btn-primary" style="color:white;position:absolute;left: 180%;
+            <a :href="link" class="btn btn-primary" style="color:white;position:absolute;left: 180%;
             top: 50%;">14.30</a>
-            <a href="reserve.html" class="btn btn-primary" style="color:white;position:absolute;left: 244%;
+            <a :href="link" class="btn btn-primary" style="color:white;position:absolute;left: 244%;
             top: 50%;">21.00</a>
           </div>
         </div>

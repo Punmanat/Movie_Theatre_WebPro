@@ -14,7 +14,8 @@
   <body>
     <div id="app">
       <!-- Nav -->
-      <nav-bar></nav-bar>
+      <nav-bar-login v-if="isLogin" :username="username" @logout="logout()"></nav-bar-login>
+      <nav-bar v-else></nav-bar>
       <div class="container">
         <movie-theater :movie="movies[0]"></movie-theater>
         <div class="row mt-5">
@@ -220,11 +221,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="./components/nav-bar.js"></script>
+    <script src="./components/nav-bar-login.js"></script>
     <script src="./components/movie-theater.js"></script>
 
     <!-- https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Couch.png -->
 
     <script>
+      let flag = localStorage.getItem('isLogin') == 'true' 
       let app = new Vue({
         el: "#app",
         data: {
@@ -537,7 +540,9 @@
                 "https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Couch.png",
               price: 300
             }
-          ]
+          ],
+          isLogin:flag,
+          username:localStorage.getItem('username'),
         },
         methods: {
           check(seat) {
@@ -634,6 +639,10 @@
             document.body.innerHTML = oldHtml
             window.location.reload(true);
           },
+                logout(){
+                    localStorage.isLogin = false
+                    window.location.href='./index.html'
+                }
         }
       });
     </script>

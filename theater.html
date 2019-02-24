@@ -13,7 +13,8 @@
   </head>
   <body>
     <div id="app">
-      <nav-bar></nav-bar>
+        <nav-bar-login v-if="isLogin" :username="username" @logout="logout()"></nav-bar-login>
+        <nav-bar v-else></nav-bar>
       <div class="container">
         <movie-theater :movie="movies[0]"></movie-theater>
         <br />
@@ -49,9 +50,9 @@
             24 ก.พ. 2019
           </button>
         </div>
-        <friday v-show="isColor1"></friday>
-        <saturday v-show="isColor2"></saturday>
-        <sunday v-show="isColor3"></sunday>
+        <friday v-show="isColor1" :link="path"></friday>
+        <saturday v-show="isColor2" :link="path"></saturday>
+        <sunday v-show="isColor3" :link="path"></sunday>
     </div>
     </div>
 
@@ -60,15 +61,19 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="./components/nav-bar.js"></script>
+    <script src="./components/nav-bar-login.js"></script>
     <script src="./components/friday.js"></script>
     <script src="./components/saturday.js"></script>
     <script src="./components/sunday.js"></script>
     <script src="./components/movie-theater.js"></script>
 
     <script>
+      let flag = localStorage.getItem('isLogin') == 'true' 
       let app = new Vue({
         el: "#app",
         data: {
+          isLogin:flag,
+          username:localStorage.getItem('username'),
           isColor1: false,
           isColor2: false,
           isColor3: false,
@@ -123,8 +128,23 @@
               this.isColor2 = false;
               this.isColor3 = true;
             }
+          },
+                logout(){
+                    localStorage.isLogin = false
+                    this.isLogin = false
+                }
+        },
+        computed:{
+          path:function(){
+            if(this.isLogin == false){
+              alert("Please Login")
+              return  "./theater.html"
+            }
+            else{
+              return "./reserve.html"
+            }
           }
-        }
+        },
       });
     </script>
   </body>

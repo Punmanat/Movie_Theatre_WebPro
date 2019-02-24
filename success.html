@@ -13,7 +13,8 @@
   </head>
   <body>
     <div id="app">
-      <nav-bar></nav-bar>
+        <nav-bar-login v-if="isLogin" :username="username" @logout="logout()"></nav-bar-login>
+        <nav-bar v-else></nav-bar>
       <div class="alert alert-success font text-center" role="alert">
         จองหนังสำเร็จ
       </div>
@@ -47,12 +48,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="./components/nav-bar.js"></script>
+    <script src="./components/nav-bar-login.js"></script>
     <script src="./components/movie-theater.js"></script>
 
     <script>
+      let flag = localStorage.getItem('isLogin') == 'true' 
       let app = new Vue({
         el: "#app",
         data: {
+          isLogin:flag,
+          username:localStorage.getItem('username'),
           movies: [
             {
               id: 1,
@@ -67,7 +72,10 @@
               isRound: false,
               synopsis: `<div class="desclistsynopsis"><p></p><p>เรื่องราวของของแครอล แดนเวอร์ส หรือ กัปตัน มาร์เวล ฮีโร่ที่ทรงพลังที่สุดในจักรวาลมาร์เวล กับการปกป้องโลกจากสงครามระดับจักรวาลระหว่างเอเลี่ยน 2 เผ่าพันธุ์ มาร์เวล สตูดิโอส์ จะพาเราไปพบกับการผจญภัยที่คุณไม่เคยเห็นมาก่อนในประวัติศาสตร์ของจักรวาลภาพยนตร์มาร์เวล พบกัน มีนาคม 2562</p><br><p></p></div>`
             }
-          ]
+          ],
+          logout(){
+                    localStorage.isLogin = false
+                }
         }
       });
     </script>
