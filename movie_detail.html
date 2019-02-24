@@ -45,7 +45,6 @@
 
     <script>
       let flag = localStorage.getItem('isLogin') == 'true' 
-
       let app = new Vue({
         el: "#app",
         data: {
@@ -105,7 +104,6 @@
           },
                 logout(){
                     localStorage.isLogin = false
-                    this.isLogin = localStorage.isLogin
                 }
         }
       });
