@@ -9,9 +9,9 @@ Vue.component("movie", {
         <div class="card-body">
             <h5 class="card-title font">{{movie.name.en}} <br> ({{movie.name.th}})</h5>
             <hr>
-            <p class="card-text font">ผู้กำกับ  : {{movie.actors}}</p>
+            <p class="card-text font">ผู้กำกับ  : {{movie.director}}</p>
             <hr>
-            <p class="card-text font">นักแสดง : {{movie.director}}</p>
+            <p class="card-text font">นักแสดง : {{movie.actors}}</p>
             <hr>
             <button @click="$emit('show-desc')" class="btn btn-success">แสดงเรื่องย่อ</button>
             <a href="./theater.html" class="ml-4 btn btn-primary" style="color:white">ดูรอบฉาย</a>
