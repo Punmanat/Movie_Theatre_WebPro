@@ -46,7 +46,7 @@ Vue.component('sunday',{
               height="100"
               alt=""
             />
-            <a :href="link" class="btn btn-primary" style="color:white;sposition:absolute;left: 116%;
+            <a :href="link" class="btn btn-primary" style="color:white;position:absolute;left: 116%;
             top: 50%;">10.00</a>
             <a :href="link" class="btn btn-primary" style="color:white;position:absolute;left: 180%;
             top: 50%;">14.30</a>
