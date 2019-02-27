@@ -5,7 +5,7 @@ Vue.component("movie-theater",{
     class="mt-5"
     style="width:100%; height: 240px; background-color:white;"
   >
-    <div style="width:40%;top: 6em;position:absolute; right:22em;">
+    <div style="width:40%;top: 6em;position:absolute; right:30%;">
       <img :src="movie.poster" alt="" />
     </div>
     <div
